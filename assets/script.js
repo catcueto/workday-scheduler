@@ -41,22 +41,28 @@ function timeblockTracker() {
 }
 timeblockTracker();
 
-const hourID = localStorage.getItem("time", []);
-const events = $(".event-description");
+const retrievedInput = localStorage.getItem("time") || [];
+// const events = $(".event-description");
 
 // SAVE BUTTON
-let saveBtn = $(".saveBtn");
+const saveBtn = $(".saveBtn");
+console.log(saveBtn);
 
-saveBtn.addEventListener("click", function (event) {
+$(".saveBtn").on("click", function (event) {
   event.preventDefault();
 
-  hourID.push({
-    time: saveBtn.value,
-    event: events.textContent,
-  });
+  //SAVING OUR VALUES - KEY (time) AND VALUE
+  const time = $(this) //saveBtn
+    .parent() //container that holds
+    .attr("id");
+  console.log(time);
 
-  console.log(hourID);
-  localStorage.setItem("time").JSON.stringify(hourID);
+  const value = $(this).siblings(".event-description").val();
+  console.log(value);
+
+  localStorage.setItem(time, value);
+
+  retrievedInput.push();
 });
 
 //   hourID.push({})
