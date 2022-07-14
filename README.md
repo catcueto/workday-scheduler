@@ -9,3 +9,5 @@ HTML, CSS, JavaScript, and Moment.js in order to display the current time and da
 ![alt text](./assets/imgs/screenshot-1.png)
 
 ![alt text](./assets/imgs/screenshot-2.png)
+
+Deployed app: https://catcueto.github.io/workday-scheduler/
