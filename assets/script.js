@@ -1,15 +1,75 @@
-// declare variables
-var index = 0;
-var container = document.querySelector(".container");
-var today = $("#currentDay");
-var day = $("#calendarDay");
+// DECLARE VARIABLES
+const index = 0;
+const container = $(".container");
+const today = $("#currentDay");
+const day = $("#calendarDay");
 
-// display date and time on screen
+// DISPLAY DATE AND TIME ON SCREEN
 function displayToday() {
-  var currentDay = moment().format("LLLL");
+  const currentDay = moment().format("LLLL");
   today.text(currentDay);
 }
 displayToday();
+
+// COLOR CODED EVENTS BASED ON TIME EVENTS
+const presentHour = moment().hour(); //current time from moment.js
+
+function timeblockTracker() {
+  //highlight row based on time
+  $(".event-description").each(function () {
+    //.each is used to iterate over an object or an array
+    let colorCode = parseInt($(this).attr("id").split("-")[1]); // parseInt parses a string and returns an integer
+    // this keyword: allows us to access the value; js wraps this value as an object
+    console.log(colorCode);
+    if (colorCode < presentHour) {
+      //if timeblock is is in the past...
+      $(this).addClass("past");
+      $(this).removeClass("present");
+      $(this).removeClass("future");
+    } else if (colorCode === presentHour) {
+      //if timerblock is in the present...
+      $(this).removeClass("past");
+      $(this).addClass("present");
+      $(this).removeClass("future");
+    } else {
+      // future
+      $(this).removeClass("past");
+      $(this).removeClass("present");
+      $(this).addClass("future");
+    }
+  });
+}
+timeblockTracker();
+
+const hourID = localStorage.getItem("time", []);
+const events = $(".event-description");
+
+// SAVE BUTTON
+let saveBtn = $(".saveBtn");
+
+saveBtn.addEventListener("click", function (event) {
+  event.preventDefault();
+
+  hourID.push({
+    time: saveBtn.value,
+    event: events.textContent,
+  });
+
+  console.log(hourID);
+  localStorage.setItem("time").JSON.stringify(hourID);
+});
+
+//   hourID.push({})
+
+//   const hourID = $(this).siblings("textarea").attr("id");
+//   const textInput = $(this).siblings(".event-description").val();
+//   console.log(hourID, textInput);
+//   S;
+//   //.siblings do ...
+//   localStorage.setItem(hourID, textInput);
+//   var savedEvents = localStorage.getItem(id);
+//   console.log(savedEvents);
+// });
 
 // --------------------------------------------------------------------------------------------------------------------------------------------------------------
 //PSEUDOCODE
